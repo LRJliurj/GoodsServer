@@ -16,8 +16,8 @@ def predict (net_name,step2_path,feature_path):
 
 
 if __name__=='__main__':
-    net_name = 'vgg16'
-    step2_path = 'E:\\opt\\data\\step2\\'
-    feature_path = "E:\\opt\\data\\feature\\"
+    net_name = 'nasnet'
+    step2_path = '/home/ai/data/step2/'
+    feature_path = "/home/ai/data/step2/"
     predict(net_name,step2_path)
 

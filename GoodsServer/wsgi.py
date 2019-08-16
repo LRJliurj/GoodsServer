@@ -1,5 +1,5 @@
 """
-WSGI config for GoodsServer project.
+WSGI set_config for GoodsServer project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

@@ -16,3 +16,10 @@ def pcos(x,y):
     y = np.asarray(y)
     X=np.vstack([x,y])
     d2=1-pdist(X,'cosine')
+
+#欧式距离
+def pdist(x,y):
+    x = np.asarray(x)
+    y = np.asarray(y)
+    X = np.vstack([x, y])
+    d2 = pdist(X)
