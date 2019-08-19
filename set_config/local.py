@@ -1,11 +1,12 @@
 yolov3_predict={
-        "good_model_path": '/home/ai/ai_code/keras-yolov3-master/model_data/yolo.h5',
-        "anchors_path": '/home/ai/ai_code/keras-yolov3-master/model_data/yolo_anchors.txt',
-        "classes_path": '/home/ai/ai_code/keras-yolov3-master/model_data/voc_classes.txt',
-        "score" : 0.2,
+        "good_model_path": 'E:\\opt\\model\\yolo3_freezer\\ep3587-loss46.704-val_loss52.474.h5',
+        "anchors_path": 'E:\\opt\\code\\github\\GoodsServer\\freezer\\keras_yolo3\\model_data\\yolo_anchors.txt',
+        "classes_path": 'E:\\opt\\code\\github\\GoodsServer\\freezer\\keras_yolo3\\model_data\\voc_classes.txt',
+        "score" : 0.05,
         "iou" : 0.45,
         "model_image_size" : (416, 416),
-        "gpu_num" : 1,
+        "gpu_num" : 0,
+        "font_file":'E:\\opt\\code\\github\\GoodsServer\\freezer\\keras_yolo3\\font\\FiraMono-Medium.otf'
 }
 
 yolov3_train_params = {
