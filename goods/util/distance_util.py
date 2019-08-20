@@ -1,5 +1,6 @@
 __author__ = 'admin'
 # *_*coding:utf-8 *_*
+#https://www.cnblogs.com/denny402/p/7028832.html
 from scipy.spatial.distance import pdist
 import numpy as np
 #布雷柯蒂斯距离

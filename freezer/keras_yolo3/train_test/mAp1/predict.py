@@ -35,6 +35,8 @@ def predict (testPath,wfile,select_threshold=0.2,nms=0.15):
         jsonL = json.dumps(listPre)
         f.write(str(jsonL))
 
+def _main():
+    predict("E:\\opt\\data\\1_windows\\jpg\\", "./data/wPreFile.txt")
 
 
 

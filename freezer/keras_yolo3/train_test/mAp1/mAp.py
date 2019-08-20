@@ -11,7 +11,7 @@ exe_params = {
     'labels':['1','2','3','4','5','6','7','8','9','10','11','12'],
     'xmlTestPath':"E:\\opt\\data\\1_windows\\xml\\",
     'jpgTestPath':"E:\\opt\\data\\1_windows\\jpg\\",
-    'predictFile':"./data/wPreFile.txt"
+    'predictFile':"./data/wPreFile1.txt"
 }
 
 labels = exe_params['labels']
