@@ -95,17 +95,15 @@ class online_util:
 class offline_util:
     feature_path = config.goods_params['kmean_params']['offline']["vgg_predict_features_path"]
     save_sort_feature_path = config.goods_params['kmean_params']['online']["kmean_predict_features_path"]
+    img_features = []
+    X = []
     def get_goods_features(self):
-        img_features = []
-        X = []
         for good_feature_file in os.listdir(self.feature_path):
             img_feature_path = os.path.join(self.feature_path, good_feature_file)
             good_upc = str(good_feature_file).strip(".txt")
-            img_features, X = self.get_feature(good_upc, img_feature_path)
-        return img_features,X
+            self.get_feature(good_upc, img_feature_path)
+        return self.img_features,self.X
     def get_feature(self,goods_upc, file_feature):
-        img_features = []
-        X = []
         with open(file_feature, 'r') as f:
             lines = f.readlines()
             for line in lines:
@@ -123,9 +121,8 @@ class offline_util:
                 for f1 in featArr:
                     f1s.append(np.sum(f1))
                     f2s = f2s + "," + str(float(np.sum(f1)))
-                X.append(f1s)
-                img_features.append(f2s)
-        return img_features, X
+                self.X.append(f1s)
+                self.img_features.append(f2s)
 
     def write_sort_feature(self,img_features, label_center, centers):
         for j, center in zip(range(len(centers)), centers):
