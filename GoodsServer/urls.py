@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from goods.service import cluster_goods
+clustergoods = cluster_goods.ClusterGoods()
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/get_goods_topn',clustergoods.get_topn),
+    path('api/add_new_good',clustergoods.add_good_img),
+    path('api/train_cluster_goods',clustergoods.train_cluter_good)
 ]

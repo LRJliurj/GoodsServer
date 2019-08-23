@@ -1,0 +1,20 @@
+pip3 install keras==2.2.4
+
+mkdir ~/.keras/models    创建vgg19不带顶层的模型目录
+scp vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5 root@192.168.1.60:/root/.keras/models/   将下载好的模型拷贝
+mkdir /home/ai/data/goods/   线上服务运行的时候，约定好的路径 （暂时舍弃，接口中传带路径的图片名）
+mkdir /home/ai/data/step2/   离线第一次训练400 商品聚类的图片数据集 ，以后如果有需要可以扩大
+mkdir /home/ai/data/feature_data/class_goods/   vgg分类模型提取的特征目录
+mkdir /home/ai/data/feature_data/cluster_goods/  聚类模型，带聚类label并排序的特征数据
+mkdir /home/ai/model/cluster_goods/  聚类模型存储路径 每次聚类都会覆盖
+
+把step2图片数据拷贝到/home/ai/data/step2/   带goods编号路径的
+predict_vgg19.py  会在/home/ai/data/feature_data/class_goods/ 里面生成分类模型提取的特征数据。
+train_cluter_first.py  会在/home/ai/data/feature_data/cluster_goods/ 里面生成聚类数据，文件名就是聚类的label
+也会生成 /home/ai/model/cluster_goods/下的聚类模型
+
+train_cluster_alter.py  线上重训练接口可以调用 ， 也可以用定时任务的方式，每隔一定周期。对/home/ai/data/feature_data/cluster_goods/
+里面的数据，进行重新聚类
+
+shell/goods_cluster.sh  可以用作定时聚类任务  也会被线上重训练接口调用
+

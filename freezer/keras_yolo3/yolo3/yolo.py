@@ -4,7 +4,6 @@ Class definition of YOLO_v3 style detection model on image and video
 """
 
 import colorsys
-import os
 from timeit import default_timer as timer
 
 import numpy as np
@@ -15,11 +14,15 @@ from PIL import Image, ImageFont, ImageDraw
 import cv2
 from freezer.keras_yolo3.yolo3.model import yolo_eval, yolo_body, tiny_yolo_body
 from freezer.keras_yolo3.yolo3.utils import letterbox_image
+from freezer.keras_yolo3.good_proxy import proxy
 import os
 from keras.utils import multi_gpu_model
 from set_config import config
+
 gpu_num = config.yolov3_predict['gpu_num']
 font_file = config.yolov3_predict['font_file']
+(diff_switch,diff_iou) = config.yolov3_predict['diff_switch_iou']
+(single_switch,single_iou,single_min_score) = config.yolov3_predict['single_switch_iou_minscore']
 class YOLO(object):
     _defaults = {
         "model_path": config.yolov3_predict['good_model_path'],
@@ -129,6 +132,13 @@ class YOLO(object):
                 K.learning_phase(): 0
             })
 
+        out_classes, out_scores, out_boxes = list(out_classes),list(out_scores), list(out_boxes)
+        if diff_switch:
+            out_classes, out_scores, out_boxes = proxy.diff_fiter(diff_iou,out_classes, out_scores, out_boxes)
+
+        if single_switch:
+            out_classes, out_scores, out_boxes = proxy.single_filter(single_iou, single_min_score,out_classes, out_scores, out_boxes)
+
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
 
         font = ImageFont.truetype(font=font_file,
@@ -139,7 +149,6 @@ class YOLO(object):
             predicted_class = self.class_names[c]
             box = out_boxes[i]
             score = out_scores[i]
-
             label = '{} {:.2f}'.format(predicted_class, score)
             draw = ImageDraw.Draw(image)
             label_size = draw.textsize(label, font)
@@ -207,6 +216,13 @@ class YOLO(object):
             p_box.append(box)
             score = out_scores[i]
             p_prob.append(score)
+
+        if diff_switch:
+            p_class, p_prob, p_box = proxy.diff_fiter(diff_iou,  p_class, p_prob, p_box)
+
+        if single_switch:
+            p_class, p_prob, p_box = proxy.single_filter(single_iou, single_min_score, p_class, p_prob, p_box)
+
         return p_class,p_prob,p_box
 
     def close_session(self):

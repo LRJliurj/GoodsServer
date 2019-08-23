@@ -4,23 +4,39 @@ import numpy as np
 import os
 from goods.util import distance_util
 #计算单个商品类内差异值
-def inside_distance(img_feature_path,class_distance_path):
-    for img_feature_file in os.listdir(img_feature_path):
-        img_feature = np.loadtxt(os.path.join(img_feature_path,img_feature_file))
-        good_feature_distance = {}
-        for key1 in img_feature:
-            x = img_feature[key1]
-            for key2 in img_feature:
-                y = img_feature[key2]
-                key_tag1 = key1+"##"+key2
-                key_tag2 = key2+"##"+key1
-                if key_tag1 not in good_feature_distance and key_tag2 not in good_feature_distance:
-                    distance = distance_util.pdistance(x,y)
-                    good_feature_distance[key1+"##"+key2] = distance
-        sorted(good_feature_distance.items(), key=lambda d: d[1])
-        dis_file = os.path.join(class_distance_path,img_feature_file)
-        if os.path.isfile(dis_file):
-            os.remove(dis_file)
-        with open(dis_file,'w') as f:
-            for feature_key in good_feature_distance:
-                f.write(feature_key+","+good_feature_distance[feature_key]+"\n")
+def inside_distance(img_feature_path,img_dis_path):
+   img_features = {}
+   with open(img_feature_path,'r') as f:
+       lines = f.readlines()
+       for line in lines:
+           feature = line.split(",")
+           filename = feature[0]
+           feature = feature[1:]
+           feat = []
+           for fea in feature:
+            feat.append(float(fea))
+           img_features[filename] = feat
+
+   img_dis={}
+   for img_feature1 in img_features:
+        for img_feature2 in img_features:
+            print (len(img_features[img_feature1]))
+            print(len(img_features[img_feature2]))
+            dis = distance_util.pcos(img_features[img_feature1],img_features[img_feature2])
+            img_dis[img_feature1+"---"+img_feature2] = dis
+            print (img_feature1+"---"+img_feature2,str(dis))
+   a = sorted(img_dis.items(), key=lambda x: x[1], reverse=True)
+   print (a)
+   with open(img_dis_path,'w') as f:
+    for key in a:
+        f.write(key[0]+","+str(float(key[1])))
+        f.write("\n")
+
+
+if  __name__=='__main__':
+    # 布雷柯蒂斯距离
+    img_feature_path = "E:\\opt\\data\\feature_top\\69024894.txt"
+    img_dis_path = "E:\\opt\\data\\feature_top\\step2_inside_cos\\69024894.txt"
+    inside_distance(img_feature_path,img_dis_path)
+
+

@@ -1,2 +1,2 @@
-from goods.net import predict
-predict.linux_main()
+from goods.util.vgg19_util import predict
+predict()

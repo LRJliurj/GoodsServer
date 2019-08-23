@@ -9,7 +9,7 @@ from keras.preprocessing import image
 import numpy as np
 
 # model_vgg16 = VGG16(weights='imagenet', include_top=False)
-model_vgg19 = VGG19(weights='imagenet', include_top=False)
+model_vgg19 = VGG19(weights='imagenet')
 # model_resnetv2 = InceptionResNetV2(weights='imagenet', include_top=False)
 # model_inceptionv3 = InceptionV3(weights='imagenet', include_top=False)
 # model_nasnet=NASNetLarge(weights='imagenet', include_top=False)

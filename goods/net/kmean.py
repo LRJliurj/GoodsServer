@@ -1,21 +1,31 @@
-import numpy as np
-from sklearn.cluster import KMeans
-from sklearn import metrics
+from sklearn.cluster import k_means_
+from sklearn.externals import joblib
+from goods.util.distance_util import pdis
+from set_config import config
 
+class Kmeans:
+    model_file = config.goods_params['kmean_params']['model_file']
+    n_cluters = config.goods_params['kmean_params']['n_cluters']
 
-def kmean_train(X,n_cluters=50):
-    model = KMeans(n_cluters=50).fit(X)
-    return model
+    def train(self,X):
+        clf = self.create_cluster(self.n_cluters)
+        s = clf.fit(X)
+        return clf,s
+    def create_cluster(self,nclust = 10):
+    # Manually override euclidean
+        def euc_dist(X, Y = None, Y_norm_squared = None, squared = False):
+            return pdis(X, Y)
+        k_means_.euclidean_distances = euc_dist
+        kmeans = k_means_.KMeans(max_iter = 10000,n_clusters = nclust, n_jobs = 20, random_state = 3425)
+        return kmeans
 
-def get_data_from_features(feature_file):
-    feature_dict = np.loadtxt(feature_file)
-    X=[]
-    for key in feature_dict:
-        X.append(np.asarray(feature_dict[key]))
-    return X,feature_dict
+    def save_model(self,clf):
+        joblib.dump(clf, self.model_file)
 
-def write(X,feature_dict):
-    model = kmean_train(X)
+    def load_model(self):
+        clf = joblib.load(self.model_file)
+        return clf
+
 
 
 

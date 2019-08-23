@@ -3,7 +3,7 @@ __author__ = 'admin'
 import numpy as np
 import json
 np.set_printoptions(suppress=True)
-from goods.net.net import Feature
+from goods.test.net.net import Feature
 import os
 import cv2
 feature = Feature()

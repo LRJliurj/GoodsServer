@@ -12,6 +12,6 @@ def test(test_jpg_path,test_jpg_write_path):
         img.save(os.path.join(test_jpg_write_path,file))
 
 if __name__=='__main__':
-    test_jpg_path = "E:\\opt\\data\\1_small\\"
-    test_jpg_write_path = "E:\\opt\\data\\1_small_write1\\"
+    test_jpg_path = "E:\\opt\\online_data\\20190821_09\\"
+    test_jpg_write_path = "E:\\opt\\online_data\\test_write\\"
     test(test_jpg_path,test_jpg_write_path)
