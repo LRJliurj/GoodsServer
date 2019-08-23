@@ -28,7 +28,7 @@ freezer_params={
 goods_params = {
 
     "kmean_params" : {
-        "n_cluters":1000,
+        "n_cluters":200,
         "top_n":50,
         "model_file":"/home/ai/model/cluster_goods/goods.pkl",
         "online":{
