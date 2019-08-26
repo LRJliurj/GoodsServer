@@ -5,6 +5,7 @@ k_means = Kmeans()
 def train_first():
     offline = offline_util()
     img_features,X = offline.get_goods_features()
+    print ("样本已载入："+str(len(X)))
     clf, s = k_means.train(X)
     offline_util.write_sort_feature(img_features, clf.labels_, clf.cluster_centers_)
     k_means.save_model(clf)
