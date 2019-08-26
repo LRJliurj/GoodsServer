@@ -28,8 +28,9 @@ freezer_params={
 goods_params = {
 
     "kmean_params" : {
-        "n_cluters":1000,
+        "n_cluters":800,
         "top_n":50,
+        "batch_size":4000,
         "model_file":"E:\\opt\\model\\kmean_goods\\goods.pkl",
         "online":{
             #kmean 聚类后带聚里的特征数据

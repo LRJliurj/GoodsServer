@@ -6,7 +6,7 @@ from set_config import config
 class Kmeans:
     model_file = config.goods_params['kmean_params']['model_file']
     n_cluters = config.goods_params['kmean_params']['n_cluters']
-
+    batch_size = config.goods_params['kmean_params']['batch_size']
     def train(self,X):
         clf = self.create_cluster(self.n_cluters)
         s = clf.fit(X)
@@ -16,8 +16,10 @@ class Kmeans:
         def euc_dist(X, Y = None, Y_norm_squared = None, squared = False):
             return pdis(X, Y)
         k_means_.euclidean_distances = euc_dist
-        kmeans = k_means_.KMeans(max_iter = 10000,n_clusters = nclust, n_jobs = 20, random_state = 3425)
-        return kmeans
+        # kmeans = k_means_.KMeans(max_iter = 10000,n_clusters = nclust, n_jobs = 20, random_state = 3425)
+        mbk = k_means_.MiniBatchKMeans(init='k-means++', n_clusters=nclust, batch_size=self.batch_size,
+                      n_init=10, max_no_improvement=10, verbose=0,reassignment_ratio=0.001)
+        return mbk
 
     def save_model(self,clf):
         joblib.dump(clf, self.model_file)
