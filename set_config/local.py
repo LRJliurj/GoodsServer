@@ -28,9 +28,9 @@ freezer_params={
 goods_params = {
 
     "kmean_params" : {
-        "n_cluters":800,
+        "n_cluters":40,
         "top_n":50,
-        "batch_size":4000,
+        "batch_size":200,
         "model_file":"E:\\opt\\model\\kmean_goods\\goods.pkl",
         "online":{
             #kmean 聚类后带聚里的特征数据
@@ -38,7 +38,7 @@ goods_params = {
         },
         "offline":{
             #kmean 聚类前 vgg19预测的特征数据
-            "vgg_predict_features_path":"E:\\opt\\data\\step2_all_feature\\"
+            "vgg_predict_features_path":"E:\\opt\\data\\step2_all_feature_small\\"
         },
     },
     "vgg19_params":{

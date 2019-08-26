@@ -42,7 +42,7 @@ class online_util:
         for i in range(len(dises)):
             save_features.append(features[i])
             if to_cluter_dis > dises[i+1] and to_cluter_dis <= dises[i]:
-                fts = good_upc+","+img_file_name+","
+                fts = good_upc+","+img_file_name
                 for gf in good_feature:
                     fts = fts+","+str(float(gf))
                 fts=fts+","+str(to_cluter_dis)
@@ -117,9 +117,9 @@ class offline_util:
                 featArr = np.array(feat)
                 featArr.resize(512, 7)
                 f1s = []
-                f2s = goods_upc + ',' + filename + ','
+                f2s = goods_upc + ',' + filename
                 for f1 in featArr:
-                    f1s.append(np.sum(f1))
+                    f1s.append(float(np.sum(f1)))
                     f2s = f2s + "," + str(float(np.sum(f1)))
                 self.X.append(f1s)
                 self.img_features.append(f2s)
@@ -131,6 +131,7 @@ class offline_util:
                 if j == i:
                     feature = str(img_feature).split(",")
                     feature_img = feature[2:]
+                    print (feature_img)
                     feature_img = list(map(float,feature_img))
                     dis = pdis(center, feature_img)
                     center_dict[img_feature] = dis
