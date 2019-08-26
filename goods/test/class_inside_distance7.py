@@ -16,15 +16,15 @@ def inside_distance(img_feature_path,img_dis_path):
        for line in lines:
            feature = line.split(",")
            filename = feature[0]
-           if "train_augment0" not in filename:
-               continue
+           # if "train_augment0" not in filename:
+           #     continue
            feature = feature[1:]
            feat = []
            for fea in feature:
             feat.append(float(fea))
            # print (len(feat))
            featArr = np.array(feat)
-           featArr.resize(512,7)
+           featArr.resize(7,512)
            f1s = []
            for f1 in featArr:
                f1s.append(np.sum(f1))
@@ -36,7 +36,7 @@ def inside_distance(img_feature_path,img_dis_path):
    img_dis={}
    for img_feature1 in img_features:
         for img_feature2 in img_features:
-            dis = distance_util.pdis(img_features[img_feature1],img_features[img_feature2])
+            dis = distance_util.pdos(img_features[img_feature1],img_features[img_feature2])
             img_dis[img_feature1+"---"+img_feature2] = dis
             print (img_feature1+"---"+img_feature2,str(dis))
    a = sorted(img_dis.items(), key=lambda x: x[1], reverse=True)
@@ -50,7 +50,7 @@ def inside_distance(img_feature_path,img_dis_path):
 if  __name__=='__main__':
     # 布雷柯蒂斯距离
     img_feature_path = "E:\\opt\\data\\step2_all_feature\\69024894.txt"
-    img_dis_path = "E:\\opt\\data\\feature_no_top\\step2_inside_dis7\\69024894.txt"
+    img_dis_path = "E:\\opt\\data\\feature_no_top\\step2_inside_dos7\\69024894.txt"
     inside_distance(img_feature_path,img_dis_path)
 
     #欧式距离

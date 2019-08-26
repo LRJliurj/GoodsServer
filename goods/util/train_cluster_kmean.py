@@ -9,6 +9,7 @@ def train_first():
     X = np.array(X)
     print ("样本已载入："+str(X.shape))
     clf, s = k_means.train(X)
+    print (clf.cluster_centers_)
     offline.write_sort_feature(img_features, clf.labels_, clf.cluster_centers_)
     k_means.save_model(clf)
 

@@ -16,8 +16,8 @@ class Kmeans:
         def euc_dist(X, Y = None, Y_norm_squared = None, squared = False):
             return pdis(X, Y)
         k_means_.euclidean_distances = euc_dist
-        kmeans = k_means_.KMeans(max_iter = 10000,n_clusters = nclust, n_jobs = 1, random_state = 3425)
-        # kmeans = k_means_.MiniBatchKMeans(init='k-means++', n_clusters=nclust, batch_size=self.batch_size, max_no_improvement=10, verbose=0,reassignment_ratio=0.001)
+        # kmeans = k_means_.KMeans(max_iter = 10000,n_clusters = nclust, n_jobs = 1, random_state = 3425)
+        kmeans = k_means_.MiniBatchKMeans(init='k-means++', n_clusters=nclust, batch_size=self.batch_size, max_no_improvement=10, verbose=0,reassignment_ratio=0.001)
         return kmeans
 
     def save_model(self,clf):

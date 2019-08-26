@@ -13,15 +13,15 @@ def  get_feature(img_feature_path):
         for line in lines:
             feature = line.split(",")
             filename = feature[0]
-            if "train_augment0" not in filename:
-                continue
+            # if "train_augment0" not in filename:
+            #     continue
             feature = feature[1:]
             feat = []
             for fea in feature:
                 feat.append(float(fea))
             # print (len(feat))
             featArr = np.array(feat)
-            featArr.resize(512, 7)
+            featArr.resize(7, 512)
             f1s = []
             for f1 in featArr:
                 f1s.append(np.sum(f1))
@@ -37,7 +37,7 @@ def outside_distance(img_feature_path1,img_feature_path2,out_side_path):
     img_dis = {}
     for img_feature1 in img_features1:
         for img_feature2 in img_features2:
-            dis = distance_util.pdis(img_features1[img_feature1], img_features2[img_feature2])
+            dis = distance_util.pdos(img_features1[img_feature1], img_features2[img_feature2])
             img_dis[img_feature1 + "---" + img_feature2] = dis
             print(img_feature1 + "---" + img_feature2, str(dis))
     a = sorted(img_dis.items(), key=lambda x: x[1], reverse=True)
@@ -49,6 +49,6 @@ def outside_distance(img_feature_path1,img_feature_path2,out_side_path):
 if  __name__=='__main__':
     img_feature_path1 = "E:\\opt\\data\\step2_all_feature\\69024894.txt"
     img_feature_path2 = "E:\\opt\\data\\step2_all_feature\\69029097.txt"
-    img_dis_path = "E:\\opt\\data\\feature_no_top\\step2_outside_dis7\\69024894-69029097.txt"
+    img_dis_path = "E:\\opt\\data\\feature_no_top\\step2_outside_dos7\\69024894-69029097.txt"
     outside_distance(img_feature_path1,img_feature_path2,img_dis_path)
 
