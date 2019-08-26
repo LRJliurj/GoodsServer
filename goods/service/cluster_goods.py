@@ -8,6 +8,7 @@ import numpy as np
 from goods.net.kmean import Kmeans
 from utils.http_out import result_failed,result_success
 from goods.util.kmean_util import online_util
+import subprocess
 online = online_util()
 feature = Feature()
 kmean = Kmeans()
@@ -77,8 +78,9 @@ class ClusterGoods:
     def train_cluter_good(self,request):
         try:
             trace_id = request.POST.get('trace_id')
-            os.popen(goods_cluster_train_shell)
-            log.info("trace_id={%s},train_cluter_good sucess" % (str(trace_id)))
+            #os.popen(goods_cluster_train_shell)
+			return_code = subprocess.call(goods_cluster_train_shell, shell=True)
+            log.info("trace_id={%s},train_cluter_good sucess,return_code=" % (str(trace_id),str(return_code)))
             data = ''
             return HttpResponse(str(result_success(data)))
         except:

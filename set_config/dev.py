@@ -59,7 +59,7 @@ log_prams = {
 }
 
 shell_params={
-    'goods_cluster_train_shell':"sh ./shell/goods_cluster.sh"
+    'goods_cluster_train_shell':"sh shell/goods_cluster.sh"
 }
 
 
