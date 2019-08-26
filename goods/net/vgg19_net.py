@@ -2,6 +2,8 @@ from keras.applications.vgg19 import VGG19,preprocess_input
 from keras.preprocessing import image
 import numpy as np
 import tensorflow as tf
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="-1"
 graph = tf.get_default_graph()
 model_vgg19 = VGG19(weights='imagenet', include_top=False)
 class Feature:
