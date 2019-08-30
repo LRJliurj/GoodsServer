@@ -52,6 +52,26 @@ goods_params = {
     }
 }
 
+linear_params={
+    "num_iter_first":10000,
+    "step_size":1.0,
+    "mini_batch_frction":1.0,
+    "num_iter_alter": 50,
+}
+
+
+shellgoods_params={
+    "spark_context":"spark://192.168.1.60:7077",
+}
+
+db_context={
+    "url":"jdbc:mysql://192.168.1.52:3306/dmstore",
+    "driver":"com.mysql.jdbc.Driver",
+    "user":"work",
+    "password":"UQrwsfpVZ12pvv24",
+}
+
+
 log_prams = {
     "log_path":"E:\\opt\\logs\\"
 }
