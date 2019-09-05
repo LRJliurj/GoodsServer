@@ -55,19 +55,21 @@ goods_params = {
 }
 
 
-linear_params={
-    "num_iter_first":10000,
-    "step_size":1.0,
-    "mini_batch_frction":1.0,
-    "num_iter_alter": 50,
-}
-
-
 shellgoods_params={
     "spark_context":"spark://192.168.1.60:7077",
+    "online_model_name":"linear",
+    "regressor_model_path" : {
+        "linear": "/home/ai/model/regressor/LinearRegressionModel",
+        "decision_tree": "/home/ai/model/regressor/DecisionTreeRegressionModel",
+        "gb_tree": "/home/ai/model/regressor/GBTRegressionModel",
+        "random_forest": "/home/ai/model/regressor/RandomForestRegressionModel"
+    }
 }
 
 db_context={
+    "host":"192.168.1.52",
+    "port":3306,
+    "database":"dmstore",
     "url":"jdbc:mysql://192.168.1.52:3306/dmstore",
     "driver":"com.mysql.jdbc.Driver",
     "user":"work",

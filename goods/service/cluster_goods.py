@@ -79,7 +79,7 @@ class ClusterGoods:
         try:
             trace_id = request.POST.get('trace_id')
             #os.popen(goods_cluster_train_shell)
-			return_code = subprocess.call(goods_cluster_train_shell, shell=True)
+            return_code = subprocess.call(goods_cluster_train_shell, shell=True)
             log.info("trace_id={%s},train_cluter_good sucess,return_code=" % (str(trace_id),str(return_code)))
             data = ''
             return HttpResponse(str(result_success(data)))
