@@ -15,7 +15,7 @@ class Regressor:
 
     # 线性回归
     def linear_train(self,train_data):
-        lr = LinearRegression(maxIter=1000, elasticNetParam=0.8, regParam=0.3)
+        lr = LinearRegression(maxIter=10000, elasticNetParam=0.8, regParam=0.3)
         # lr_model = lr.fit(train_data)
         pipeline = Pipeline(stages=[lr])
         lr_model = pipeline.fit(train_data)

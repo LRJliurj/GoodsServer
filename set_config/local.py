@@ -75,6 +75,17 @@ db_context={
 }
 
 
+# db_context={
+#     "host":"192.168.1.62",
+#     "port":3306,
+#     "database":"goodsdl",
+#     "url":"jdbc:mysql://192.168.1.62:3306/goodsdl",
+#     "driver":"com.mysql.jdbc.Driver",
+#     "user":"root",
+#     "password":"iShehui",
+# }
+
+
 log_prams = {
     "log_path":"D:\\opt\\logs\\"
 }

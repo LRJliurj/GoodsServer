@@ -1,7 +1,8 @@
 from pyspark import SparkContext
+from pyspark.sql import SparkSession
 from pyspark.sql import SQLContext
 from set_config import config
-# from pyspark.sql import SparkSession
+#
 # from sellgoods.sql import sales_quantity
 # spark_context = config.shellgoods_params['spark_context']
 db_context = config.db_context
@@ -10,6 +11,7 @@ class SparkDb:
     def get_spark_context(self):
         # sc = SparkContext(spark_context, sc_name)
         # sc = SparkSession.builder.master(spark_context).appName(self.sc_name).config('spark.executor.memory','2g').getOrCreate()
+        # sc = ss.sparkContext()
         sc = SparkContext()
         return sc
     def get_sparksql_context(self,sc):

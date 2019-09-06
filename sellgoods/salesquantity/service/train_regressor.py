@@ -8,7 +8,7 @@ regressor_model_path = config.shellgoods_params['regressor_model_path']
 salves_ins = salves_volume.Salves()
 regressor_ins = regressor.Regressor()
 def train_regressor():
-    train_features,test_features =salves_ins.generate_features3()
+    train_features,test_features =salves_ins.generate_features4()
     sc = salves_ins.sc
     # # 线性回归模型
     lr_model = regressor_ins.linear_train(train_features)

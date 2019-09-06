@@ -66,16 +66,24 @@ shellgoods_params={
     }
 }
 
+# db_context={
+# #     "host":"192.168.1.52",
+# #     "port":3306,
+# #     "database":"dmstore",
+# #     "url":"jdbc:mysql://192.168.1.52:3306/dmstore",
+# #     "driver":"com.mysql.jdbc.Driver",
+# #     "user":"work",
+# #     "password":"UQrwsfpVZ12pvv24",
+# # }
 db_context={
-    "host":"192.168.1.52",
+    "host":"192.168.1.62",
     "port":3306,
-    "database":"dmstore",
-    "url":"jdbc:mysql://192.168.1.52:3306/dmstore",
+    "database":"goodsdl",
+    "url":"jdbc:mysql://192.168.1.62:3306/goodsdl",
     "driver":"com.mysql.jdbc.Driver",
-    "user":"work",
-    "password":"UQrwsfpVZ12pvv24",
+    "user":"root",
+    "password":"iShehui",
 }
-
 
 log_prams = {
     "log_path":"logs/"
