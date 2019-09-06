@@ -12,7 +12,7 @@ def train_regressor():
     sc = salves_ins.sc
     # # 线性回归模型
     lr_model = regressor_ins.linear_train(train_features)
-    print ("lr:"+str(lr_model))
+    # print ("lr:"+str(lr_model))
     rmse,r2,result = regressor_ins.evaluate(test_features,lr_model)
     print("lr test rootMeanSquaredError:" + str(rmse))
     print("lr test r2::" + str(r2))

@@ -27,31 +27,31 @@ sql_params={
 
 
     #基于upc的训练sql
-    # "upc_data_sql":"select sum(T2.t1_nums) as ai_nums,T2.t1_shop_id as ai_shop_id ,T3.upc as ai_upc,T2.t1_create_date as  ai_create_date,DATE_FORMAT( from_unixtime(unix_timestamp(DATE_FORMAT(T2.t1_create_date ,'%Y-%m-%d'))+24*3600),'%Y-%m-%d') as ai_next_date from ( "
-    #                 "select sum(T1.nums) as t1_nums,T1.shop_id as t1_shop_id,T1.goods_id,T1.create_date as t1_create_date  from "
-		#                 "(select number nums,shop_id,goods_id,DATE_FORMAT(create_time,'%Y-%m-%d') 	create_date from payment_detail "
-    #                             "where shop_id is not null and goods_id is not null and number > 0 and "
-		# 		                "payment_id in ( "
-    #                                 "select distinct(payment.id) from payment where payment.type != 50  and create_time > '2019-08-01 00:00:00' and create_time < '2019-09-01 00:00:00' "
-		# 									") "
-    #                     ")  T1 "
-		#                 "group by T1.shop_id,T1.goods_id,T1.create_date) T2 "
-    #                 "left join  shop_goods T3 on T2.t1_shop_id= T3.shop_id and T2.goods_id = T3.goods_id "
-    #                 "where T3.upc != '' "
-    #                 "group by T2.t1_create_date,T2.t1_shop_id,T3.upc",
-
-    "upc_data_sql":"select sum(T2.t1_nums) as ai_nums,T2.t1_shop_id as ai_shop_id ,T3.upc as ai_upc,FROM_UNIXTIME(T2.t1_create_date,'yyyy-MM-dd') as  ai_create_date,FROM_UNIXTIME((T2.t1_create_date+24*3600),'yyyy-MM-dd') as ai_next_date from ( "
+    "upc_data_sql":"select sum(T2.t1_nums) as ai_nums,T2.t1_shop_id as ai_shop_id ,T3.upc as ai_upc,T2.t1_create_date as  ai_create_date,DATE_FORMAT( from_unixtime(unix_timestamp(DATE_FORMAT(T2.t1_create_date ,'%Y-%m-%d'))+24*3600),'%Y-%m-%d') as ai_next_date from ( "
                     "select sum(T1.nums) as t1_nums,T1.shop_id as t1_shop_id,T1.goods_id,T1.create_date as t1_create_date  from "
-		                "(select number nums,shop_id,goods_id,create_date from payment_detail "
+		                "(select number nums,shop_id,goods_id,DATE_FORMAT(create_time,'%Y-%m-%d') 	create_date from payment_detail "
                                 "where shop_id is not null and goods_id is not null and number > 0 and "
 				                "payment_id in ( "
-                                    "select distinct(payment.id) from payment "
+                                    "select distinct(payment.id) from payment where payment.type != 50  and create_time > '2019-08-01 00:00:00' and create_time < '2019-09-01 00:00:00' "
 											") "
                         ")  T1 "
 		                "group by T1.shop_id,T1.goods_id,T1.create_date) T2 "
                     "left join  shop_goods T3 on T2.t1_shop_id= T3.shop_id and T2.goods_id = T3.goods_id "
                     "where T3.upc != '' "
                     "group by T2.t1_create_date,T2.t1_shop_id,T3.upc",
+
+    # "upc_data_sql":"select sum(T2.t1_nums) as ai_nums,T2.t1_shop_id as ai_shop_id ,T3.upc as ai_upc,FROM_UNIXTIME(T2.t1_create_date,'yyyy-MM-dd') as  ai_create_date,FROM_UNIXTIME((T2.t1_create_date+24*3600),'yyyy-MM-dd') as ai_next_date from ( "
+    #                 "select sum(T1.nums) as t1_nums,T1.shop_id as t1_shop_id,T1.goods_id,T1.create_date as t1_create_date  from "
+		#                 "(select number nums,shop_id,goods_id,create_date from payment_detail "
+    #                             "where shop_id is not null and goods_id is not null and number > 0 and "
+		# 		                "payment_id in ( "
+    #                                 "select distinct(payment.id) from payment "
+		# 									") "
+    #                     ")  T1 "
+		#                 "group by T1.shop_id,T1.goods_id,T1.create_date) T2 "
+    #                 "left join  shop_goods T3 on T2.t1_shop_id= T3.shop_id and T2.goods_id = T3.goods_id "
+    #                 "where T3.upc != '' "
+    #                 "group by T2.t1_create_date,T2.t1_shop_id,T3.upc",
 
 
     # "upc_data_sql":"select sum(T2.t1_nums) as ai_nums,T2.t1_shop_id as ai_shop_id ,T3.upc as ai_upc,T2.t1_create_date as ai_create_date,DATE_FORMAT(from_unixtime(unix_timestamp(DATE_FORMAT(T2.t1_create_date ,'%Y-%m-%d'))+24*3600),'%Y-%m-%d') as ai_next_date from (select sum(T1.nums) as t1_nums,T1.shop_id as t1_shop_id,T1.goods_id,T1.create_date as t1_create_date  from (select number nums,shop_id,goods_id,DATE_FORMAT(create_time,'%Y-%m-%d') create_date from payment_detail  where shop_id is not null and goods_id is not null and number > 0 and create_time > '2019-08-01 00:00:00' and create_time < '2019-09-01 00:00:00'  and payment_id in ( select distinct(payment.id) from payment where payment.type != 50  and create_time > '2019-08-01 00:00:00' and create_time < '2019-09-01 00:00:00') )  T1  group by T1.shop_id,T1.goods_id,T1.create_date) T2 left join  shop_goods T3 on T2.t1_shop_id= T3.shop_id and T2.goods_id = T3.goods_id where T3.upc != '' group by T2.t1_create_date,T2.t1_shop_id,T3.upc",

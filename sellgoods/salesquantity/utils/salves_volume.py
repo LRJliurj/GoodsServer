@@ -109,17 +109,17 @@ class Salves:
 
     def generate_features4(self):
         sql = sales_quantity.sql_params['upc_data_sql']
-        sql1 = sales_quantity.sql_params['upc_data_sql1']  # payment_detail
-        sql2 = sales_quantity.sql_params['upc_data_sql2']  # payment
-        sql3 = sales_quantity.sql_params['upc_data_sql3']  # shop_goods
-        sql_dataf1 = self.get_data_from_mysql(sql1)
-        sql_dataf2 = self.get_data_from_mysql(sql2)
-        sql_dataf3 = self.get_data_from_mysql(sql3)
-        sql_dataf1.registerTempTable('payment_detail')
-        sql_dataf2.registerTempTable('payment')
-        sql_dataf3.registerTempTable('shop_goods')
-
-        sql_dataf = self.sqlsc.sql(sql)
+        # sql1 = sales_quantity.sql_params['upc_data_sql1']  # payment_detail
+        # sql2 = sales_quantity.sql_params['upc_data_sql2']  # payment
+        # sql3 = sales_quantity.sql_params['upc_data_sql3']  # shop_goods
+        # sql_dataf1 = self.get_data_from_mysql(sql1)
+        # sql_dataf2 = self.get_data_from_mysql(sql2)
+        # sql_dataf3 = self.get_data_from_mysql(sql3)
+        # sql_dataf1.registerTempTable('payment_detail')
+        # sql_dataf2.registerTempTable('payment')
+        # sql_dataf3.registerTempTable('shop_goods')
+        sql_dataf = self.get_data_from_mysql(sql)
+        # sql_dataf = self.sqlsc.sql(sql)
         sql_dataf.show(10)
         sql_dataf.registerTempTable('salves_volume_day')
         sql_dataf = self.sqlsc.sql(
