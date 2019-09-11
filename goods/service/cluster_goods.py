@@ -124,6 +124,8 @@ class ClusterGoods:
             img_local_file= request.POST.get('img_local_file')
             good_upc = request.POST.get('good_upc')
             trace_id = request.POST.get('trace_id')
+            log.info("trace_id = {%s},img_local_file is not exsit,img_local_file={%s}" % (
+                str(trace_id), str(img_local_file)))
             if os.path.isfile(img_local_file) == False:
                 log.info("trace_id = {%s},img_local_file is not exsit,img_local_file={%s}" % (
                 str(trace_id), str(img_local_file)))

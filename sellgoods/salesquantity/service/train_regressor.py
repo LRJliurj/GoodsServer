@@ -33,8 +33,8 @@ def train_regressor():
     rmse,r2,result = regressor_ins.evaluate(train_features, dt_model)
     print("dt test rootMeanSquaredError:" + str(rmse))
     print("dt test r2::" + str(r2))
-    model_time = '2019-08-28'
-    test_time = '2019-08-29'
+    model_time = '2019-08-30'
+    test_time = '2019-08-31'
     test_path =  test_data_save_path+test_time
     model_path = regressor_model_path['decision_tree']+model_time
     if os.path.isdir(model_path):
