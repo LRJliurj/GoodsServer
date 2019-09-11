@@ -13,12 +13,13 @@ class SparkDb:
         # sc = SparkSession.builder.master(spark_context).appName(self.sc_name).config('spark.executor.memory','2g').getOrCreate()
         # sc = ss.sparkContext()
         sc = SparkContext()
-        sc.setSystemProperty('spark.executor.memory', '6g')
-        sc.setSystemProperty('spark.driver.memory', '4g')
+        sc.setSystemProperty('spark.executor.memory', '8g')
+        sc.setSystemProperty('spark.driver.memory', '6g')
         sc.setSystemProperty('spark.worker.memory', '8g')
         sc.setSystemProperty('spark.driver.maxResultsSize', '0')
         sc.setSystemProperty('spark.executor.cores', '6')
         sc.setSystemProperty('spark.shuffle.memoryFraction', '0')
+        sc.setSystemProperty("spark.sql.execution.arrow.enabled", "true")
         return sc
     def get_sparksql_context(self,sc):
         sqlContext = SQLContext(sc)

@@ -85,6 +85,42 @@ class online_util:
                     f.write(key)
                     f.write("\n")
 
+    # 删除指定商品图片的聚类向量
+    def delete_feature(self,upc,filename):
+        upc_filename = upc+","+filename
+        files = os.listdir(self.save_sort_feature_path)
+        file_index_path = None
+        for file in files:
+            file_path = os.path.join(self.save_sort_feature_path,file)
+            with open(file_path,'r') as f:
+                lines = f.readlines()
+                for line in lines:
+                    if upc_filename in line:
+                        file_index_path = file_path
+                        break
+            if file_index_path != None:
+                break
+        if file_index_path == None:
+            return -1
+        new_lines=[]
+        with open(file_index_path, 'r') as f:
+            lines = f.readlines()
+            for line in lines:
+                if upc_filename not in line:
+                    new_lines.append(line)
+
+        if len(new_lines) < 1:
+            return -1
+        else:
+            with open(file_index_path, 'w') as f:
+                for line in new_lines:
+                    f.write(line)
+                    f.write("\n")
+        return 0
+
+
+
+
 
 
 # 离线保存kmean模型,获取特征的util，保存排序后的聚类特征

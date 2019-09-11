@@ -14,7 +14,7 @@ class Salves:
     def __init__(self):
         self.model = regressor_ins.load_model(regressor_model_path[online_model_name])
     def predict(self):
-       feature,online_df = salves_ins.get_online_features3()
+       feature,online_df = salves_ins.get_online_features4()
        result = self.model.transform(feature)
        result = result.select('prediction')
        sql_dfl = []

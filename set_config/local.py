@@ -56,6 +56,7 @@ goods_params = {
 shellgoods_params={
     "spark_context":"spark://192.168.1.60:7077",
     "online_model_name":"linear",
+    "test_data_save_path":"D:\\opt\\data\\linear\\predict_test\\test.txt",
     "regressor_model_path" : {
         "linear": "D:\\opt\\code\\model\\regressor\\LinearRegressionModel",
         "decision_tree": "D:\\opt\\code\\model\\regressor\\DecisionTreeRegressionModel",
@@ -63,27 +64,27 @@ shellgoods_params={
         "random_forest": "D:\\opt\\code\\model\\regressor\\RandomForestRegressionModel"
     }
 }
+#
+# db_context={
+#     "host":"192.168.1.52",
+#     "port":3306,
+#     "database":"dmstore",
+#     "url":"jdbc:mysql://192.168.1.52:3306/dmstore",
+#     "driver":"com.mysql.jdbc.Driver",
+#     "user":"work",
+#     "password":"UQrwsfpVZ12pvv24",
+# }
+
 
 db_context={
-    "host":"192.168.1.52",
+    "host":"192.168.1.62",
     "port":3306,
-    "database":"dmstore",
-    "url":"jdbc:mysql://192.168.1.52:3306/dmstore",
+    "database":"goodsdl",
+    "url":"jdbc:mysql://192.168.1.62:3306/goodsdl",
     "driver":"com.mysql.jdbc.Driver",
-    "user":"work",
-    "password":"UQrwsfpVZ12pvv24",
+    "user":"root",
+    "password":"iShehui",
 }
-
-
-# db_context={
-# #     "host":"192.168.1.62",
-# #     "port":3306,
-# #     "database":"goodsdl",
-# #     "url":"jdbc:mysql://192.168.1.62:3306/goodsdl",
-# #     "driver":"com.mysql.jdbc.Driver",
-# #     "user":"root",
-# #     "password":"iShehui",
-# # }
 
 
 log_prams = {

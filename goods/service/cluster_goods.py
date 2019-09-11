@@ -9,6 +9,7 @@ from goods.net.kmean import Kmeans
 from utils.http_out import result_failed,result_success
 from goods.util.kmean_util import online_util
 import subprocess
+import demjson
 online = online_util()
 feature = Feature()
 kmean = Kmeans()
@@ -18,6 +19,50 @@ log.set_logger(cmdlevel='debug', log_address=log_address, modelname='ClusterGood
 clf = kmean.load_model()
 goods_cluster_train_shell = config.shell_params['goods_cluster_train_shell']
 class ClusterGoods:
+    def get_topn_many(self, request):
+        try:
+            img_local_files_ = request.POST.get('img_local_files')
+            trace_id = request.POST.get('trace_id')
+            img_local_files = []
+            for img_local_file in str(img_local_files_).split(","):
+                if os.path.isfile(img_local_file) == False:
+                    log.info(
+                        "trace_id = {%s},img_local_file is not exsit,img_local_file={%s}" % (trace_id, str(img_local_file)))
+                else:
+                    img_local_files.append(img_local_file)
+            if len(img_local_files)<1:
+                log.info(
+                    "trace_id = {%s},img_local_files all is not exsit,img_local_files={%s}" % (
+                    trace_id, str(img_local_files)))
+                return HttpResponse(str(result_failed()))
+            file_features = feature.get_features_by_net(img_local_files)
+            # print (file_features.shape)
+            f1ss = []
+            for file_feature in file_features:
+                # print(file_feature.shape)
+                featArr = file_feature[0]
+                (w, h) = featArr.shape
+                featArr.resize(1, w * h)
+                featArr.resize(h, w)
+                # print(featArr.shape)
+                f1s = []
+                for f1 in featArr:
+                    f1s.append(float(np.sum(f1)))
+                # print("feature_img" + str(f1s))
+                f1ss.append(f1s)
+            cluter_labels = clf.predict(f1ss)
+            # print("cluter_label" + str(cluter_labels))
+            ret={}
+            for cluter_label,img_local_file in zip(cluter_labels,img_local_files):
+                to_cluter_dis = pdis(f1s, clf.cluster_centers_[cluter_label])[0]
+                upcs = online.get_topn_upc(cluter_label, to_cluter_dis)
+                ret[img_local_file] = upcs
+            log.info("trace_id = {%s},,ret={%s}" % (trace_id, str(demjson.encode(ret))))
+            return HttpResponse(str(result_success(ret)))
+        except:
+            log.trace()
+
+
     def get_topn(self,request):
         try:
             img_local_file = request.POST.get('img_local_file')
@@ -74,7 +119,28 @@ class ClusterGoods:
             return HttpResponse(str(result_success(data)))
         except:
             log.trace()
-
+    def delete_good_img(self,request):
+        try:
+            img_local_file= request.POST.get('img_local_file')
+            good_upc = request.POST.get('good_upc')
+            trace_id = request.POST.get('trace_id')
+            if os.path.isfile(img_local_file) == False:
+                log.info("trace_id = {%s},img_local_file is not exsit,img_local_file={%s}" % (
+                str(trace_id), str(img_local_file)))
+                return HttpResponse(str(result_failed()))
+            filename = os.path.basename(os.path.realpath(img_local_file))
+            code = online.delete_feature(good_upc,filename)
+            if code == 0 :
+                data = ''
+                log.info("trace_id = {%s},img_local_file exsit,img_local_file={%s},delete success" % (
+                    str(trace_id), str(img_local_file)))
+                return HttpResponse(str(result_success(data)))
+            else :
+                log.info("trace_id = {%s},img_local_file exsit,img_local_file={%s},delete failed" % (
+                    str(trace_id), str(img_local_file)))
+                return HttpResponse(str(result_failed()))
+        except:
+            log.trace()
     def train_cluter_good(self,request):
         try:
             trace_id = request.POST.get('trace_id')

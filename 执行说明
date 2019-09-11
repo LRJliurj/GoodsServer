@@ -30,3 +30,4 @@ pip install  -U -i https://pypi.tuna.tsinghua.edu.cn/simple django==2.0
 pip install  -U -i https://pypi.tuna.tsinghua.edu.cn/simple demjson
 pip install  -U -i https://pypi.tuna.tsinghua.edu.cn/simple pymysql
 pip install  -U -i https://pypi.tuna.tsinghua.edu.cn/simple pyspark
+pip install -U -i https://pypi.tuna.tsinghua.edu.cn/simple pyarrow

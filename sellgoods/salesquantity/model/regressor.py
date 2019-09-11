@@ -34,14 +34,14 @@ class Regressor:
 
     #决策树回归
     def decision_tree_train(self,train_data):
-        dt = DecisionTreeRegressor(maxDepth=10)
+        dt = DecisionTreeRegressor(maxDepth=5)
         pipeline = Pipeline(stages=[dt])
         dt_model = pipeline.fit(train_data)
         # dt_model = dt.fit(train_data)
         return dt_model
     # 梯度提升树回归
     def gb_tree_train(self,train_data):
-        gbt = GBTRegressor(maxIter=100, maxDepth=3)
+        gbt = GBTRegressor(maxIter=10000, maxDepth=3)
         pipeline = Pipeline(stages=[gbt])
         gbt_model = pipeline.fit(train_data)
         # gbt_model = gbt.fit(train_data)
