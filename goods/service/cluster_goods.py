@@ -10,6 +10,7 @@ from utils.http_out import result_failed,result_success
 from goods.util.kmean_util import online_util
 import subprocess
 import demjson
+import time
 online = online_util()
 feature = Feature()
 kmean = Kmeans()
@@ -37,6 +38,7 @@ class ClusterGoods:
                     "trace_id = {%s},img_local_files all is not exsit,img_local_files={%s}" % (
                     trace_id, str(img_local_files)))
                 return HttpResponse(str(result_failed()))
+            log.info("vgg predict start time :"+str(time.time()))
             file_features = feature.get_features_by_net(img_local_files)
             # print (file_features.shape)
             f1ss = []
@@ -52,14 +54,17 @@ class ClusterGoods:
                     f1s.append(float(np.sum(f1)))
                 # print("feature_img" + str(f1s))
                 f1ss.append(f1s)
+            log.info("kmean predict start time :" + str(time.time()))
             cluter_labels = clf.predict(f1ss)
             # print("cluter_label" + str(cluter_labels))
             ret={}
+            log.info("get local file features start time :" + str(time.time()))
             for cluter_label,img_local_file in zip(cluter_labels,img_local_files):
                 to_cluter_dis = pdis(f1s, clf.cluster_centers_[cluter_label])[0]
                 upcs = online.get_topn_upc(cluter_label, to_cluter_dis)
                 ret[img_local_file] = upcs
-            log.info("trace_id = {%s},,ret={%s}" % (trace_id, str(demjson.encode(ret))))
+            # log.info("trace_id = {%s},,ret={%s}" % (trace_id, str(demjson.encode(ret))))
+            log.info("getmany_topn end time :" + str(time.time()))
             return HttpResponse(str(result_success(ret)))
         except:
             log.trace()
@@ -78,16 +83,16 @@ class ClusterGoods:
             (w, h) = featArr.shape
             featArr.resize(1, w * h)
             featArr.resize(h, w)
-            print(featArr.shape)
+            # print(featArr.shape)
             f1s = []
             for f1 in featArr:
                 f1s.append(float(np.sum(f1)))
-            print ("feature_img"+str(f1s))
+            # print ("feature_img"+str(f1s))
             cluter_label = clf.predict([f1s])[0]
-            print("cluter_label" + str(cluter_label))
+            # print("cluter_label" + str(cluter_label))
             to_cluter_dis = pdis(f1s,clf.cluster_centers_[cluter_label])[0]
             upcs = online.get_topn_upc(cluter_label,to_cluter_dis)
-            log.info("trace_id = {%s},img_local_file={%s},upcs={%s}"%(trace_id,img_local_file,str(upcs)))
+            log.info("trace_id = {%s},img_local_file={%s},upcs={%s},cluter_label={%s}"%(trace_id,img_local_file,str(upcs),str(cluter_label)))
             data = {"upcs":upcs}
             return HttpResponse(str(result_success(data)))
         except:
@@ -114,9 +119,7 @@ class ClusterGoods:
             for f1 in featArr:
                 f1s.append(float(np.sum(f1)))
             cluter_label = clf.predict([f1s])[0]
-            print (cluter_label)
             to_cluter_dis = pdis(f1s,clf.cluster_centers_[cluter_label])[0]
-            print (to_cluter_dis)
             # filename = os.path.basename(os.path.realpath(img_local_file))
             # online.save_new_goods_feature(cluter_label, to_cluter_dis, good_upc, f1s, filename)
             online.save_new_goods_feature(cluter_label,to_cluter_dis,good_upc,f1s,goods_shelfgoods_id)

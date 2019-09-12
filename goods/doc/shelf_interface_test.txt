@@ -1,0 +1,8 @@
+
+curl "http://192.168.1.60:8001/api/createshelfimage?shopid=4044&shelfid=22&picurl=http://img.starft.cn/dmstore/p/22621275&tlevel=1"
+
+不通 从浏览器里面 访问 http://192.168.1.60:8001/api/shelfgoods/54381/   通过表单提交的方式测试
+curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d'{"upc":"123","xmin":830,"ymin":1555,"xmax":968,"ymax":2128"}'  'http://192.168.1.60:8001/api/shelfgoods/54307'
+
+
+curl -X DELETE 'http://192.168.1.60:8001/api/shelfgoods/54381/'

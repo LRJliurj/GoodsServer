@@ -28,7 +28,7 @@ class online_util:
         cluter_dict = {}
         for i,good_upc,distance in zip(range(len(goods_upcs)),goods_upcs,dises):
             cluter_dict[str(i)+"##"+str(good_upc)] = abs(distance-to_cluter_dis)
-        print (cluter_dict)
+        # print (cluter_dict)
         a = sorted(cluter_dict.items(), key=lambda x: x[1], reverse=False)
         for key in a:
             upc = key[0].split("##")[1]
