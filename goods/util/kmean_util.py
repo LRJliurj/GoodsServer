@@ -86,8 +86,8 @@ class online_util:
                     f.write("\n")
 
     # 删除指定商品图片的聚类向量
-    def delete_feature(self,upc,filename):
-        upc_filename = upc+","+filename
+    def delete_feature(self,goods_shelfgoods_id):
+        upc_filename = goods_shelfgoods_id
         files = os.listdir(self.save_sort_feature_path)
         file_index_path = None
         for file in files:
