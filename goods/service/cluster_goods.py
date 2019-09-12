@@ -24,14 +24,16 @@ class ClusterGoods:
             img_local_files_ = request.POST.get('img_local_files')
             trace_id = request.POST.get('trace_id')
             img_local_files = []
+            log.info(
+                "trace_id = {%s},img_local_file={%s}" % (trace_id, str(img_local_files_)))
             for img_local_file in str(img_local_files_).split(","):
                 if os.path.isfile(img_local_file) == False:
-                    log.info(
+                    log.error(
                         "trace_id = {%s},img_local_file is not exsit,img_local_file={%s}" % (trace_id, str(img_local_file)))
                 else:
                     img_local_files.append(img_local_file)
             if len(img_local_files)<1:
-                log.info(
+                log.error(
                     "trace_id = {%s},img_local_files all is not exsit,img_local_files={%s}" % (
                     trace_id, str(img_local_files)))
                 return HttpResponse(str(result_failed()))
@@ -94,10 +96,13 @@ class ClusterGoods:
     def add_good_img(self,request):
         try:
             img_local_file = request.POST.get('img_local_file')
+            goods_shelfgoods_id = request.POST.get('goods_shelfgoods_id')
             good_upc = request.POST.get('good_upc')
             trace_id = request.POST.get('trace_id')
+            log.info("trace_id = {%s},img_local_file={%s},goods_shelfgoods_id={%s}" % (
+            str(trace_id), str(img_local_file), str(goods_shelfgoods_id)))
             if os.path.isfile(img_local_file) == False:
-                log.info("trace_id = {%s},img_local_file is not exsit,img_local_file={%s}" % (str(trace_id),str(img_local_file)))
+                log.error("trace_id = {%s},img_local_file is not exsit,img_local_file={%s},goods_shelfgoods_id={%s}" % (str(trace_id),str(img_local_file),str(goods_shelfgoods_id)))
                 return HttpResponse(str(result_failed()))
             file_features = feature.get_feature_by_net(img_local_file)
             featArr = file_features[0][0]
@@ -112,8 +117,9 @@ class ClusterGoods:
             print (cluter_label)
             to_cluter_dis = pdis(f1s,clf.cluster_centers_[cluter_label])[0]
             print (to_cluter_dis)
-            filename = os.path.basename(os.path.realpath(img_local_file))
-            online.save_new_goods_feature(cluter_label,to_cluter_dis,good_upc,f1s,filename)
+            # filename = os.path.basename(os.path.realpath(img_local_file))
+            # online.save_new_goods_feature(cluter_label, to_cluter_dis, good_upc, f1s, filename)
+            online.save_new_goods_feature(cluter_label,to_cluter_dis,good_upc,f1s,goods_shelfgoods_id)
             log.info("trace_id={%s},img_local_file={%s},add_good_img sucess,cluter_label={%s}" % (str(trace_id),img_local_file,str(cluter_label)))
             data = ''
             return HttpResponse(str(result_success(data)))
@@ -121,25 +127,19 @@ class ClusterGoods:
             log.trace()
     def delete_good_img(self,request):
         try:
-            img_local_file= request.POST.get('img_local_file')
-            good_upc = request.POST.get('good_upc')
+            goods_shelfgoods_id= request.POST.get('goods_shelfgoods_id')
             trace_id = request.POST.get('trace_id')
-            log.info("trace_id = {%s},img_local_file is not exsit,img_local_file={%s}" % (
-                str(trace_id), str(img_local_file)))
-            if os.path.isfile(img_local_file) == False:
-                log.info("trace_id = {%s},img_local_file is not exsit,img_local_file={%s}" % (
-                str(trace_id), str(img_local_file)))
-                return HttpResponse(str(result_failed()))
-            filename = os.path.basename(os.path.realpath(img_local_file))
-            code = online.delete_feature(good_upc,filename)
+            log.info("trace_id = {%s},goods_shelfgoods_id={%s}" % (
+                str(trace_id),str(goods_shelfgoods_id)))
+            code = online.delete_feature(goods_shelfgoods_id)
             if code == 0 :
                 data = ''
-                log.info("trace_id = {%s},img_local_file exsit,img_local_file={%s},delete success" % (
-                    str(trace_id), str(img_local_file)))
+                log.info("trace_id = {%s},goods_shelfgoods_id={%s},delete success" % (
+                    str(trace_id), str(goods_shelfgoods_id)))
                 return HttpResponse(str(result_success(data)))
             else :
-                log.info("trace_id = {%s},img_local_file exsit,img_local_file={%s},delete failed" % (
-                    str(trace_id), str(img_local_file)))
+                log.info("trace_id = {%s},goods_shelfgoods_id={%s},delete failed" % (
+                    str(trace_id), str(goods_shelfgoods_id)))
                 return HttpResponse(str(result_failed()))
         except:
             log.trace()
