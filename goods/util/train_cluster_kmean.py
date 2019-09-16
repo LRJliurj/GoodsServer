@@ -5,7 +5,8 @@ k_means = Kmeans()
 
 def train_first():
     offline = offline_util()
-    img_features,X = offline.get_goods_features()
+    # img_features,X = offline.get_goods_features()
+    img_features, X = offline.get_goods_features1()
     X = np.array(X)
     print ("样本已载入："+str(X.shape))
     clf, s = k_means.train(X)

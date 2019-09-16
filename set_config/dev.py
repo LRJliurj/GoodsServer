@@ -28,9 +28,9 @@ freezer_params={
 goods_params = {
 
     "kmean_params" : {
-        "n_cluters":100,
+        "n_cluters":200,
         "top_n":50,
-        "batch_size":300,
+        "batch_size":100,
         "model_file":"/home/ai/model/cluster_goods/goods.pkl",
         "online":{
             #kmean 聚类后带排序的特征数据
@@ -38,7 +38,8 @@ goods_params = {
         },
         "offline":{
             #kmean 聚类前 vgg19预测的特征数据
-            "vgg_predict_features_path":"/home/ai/data/feature_data/class_goods/"
+            "vgg_predict_features_path":"/home/ai/data/feature_data/class_goods/",
+            "vgg_predict_features_path1":"/home/ai/data/feature_data/class_goods/vgg_features.txt"
         },
     },
     "vgg19_params":{

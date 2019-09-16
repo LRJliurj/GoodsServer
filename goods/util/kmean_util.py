@@ -95,7 +95,7 @@ class online_util:
             with open(file_path,'r') as f:
                 lines = f.readlines()
                 for line in lines:
-                    if upc_filename in line:
+                    if upc_filename in line.split(","):
                         file_index_path = file_path
                         break
             if file_index_path != None:
@@ -126,9 +126,40 @@ class online_util:
 # 离线保存kmean模型,获取特征的util，保存排序后的聚类特征
 class offline_util:
     feature_path = config.goods_params['kmean_params']['offline']["vgg_predict_features_path"]
+    feature_path_file = config.goods_params['kmean_params']['offline']["vgg_predict_features_path1"]
     save_sort_feature_path = config.goods_params['kmean_params']['online']["kmean_predict_features_path"]
     img_features = []
     X = []
+    def get_goods_features1(self):
+        with open(self.feature_path_file, 'r') as f:
+            lines = f.readlines()
+            for line in lines:
+                feature = line.split(",")
+                filename = feature[0]
+                upc = None
+                if "_" in filename:
+                    upc = filename.split("_")[0]
+                else:
+                    upc = filename.strip(".jpg")
+                feature = feature[1:]
+                feat = []
+                for fea in feature:
+                    feat.append(float(fea))
+                # print (len(feat))
+                featArr = np.array(feat)
+                featArr.resize(512, 7)
+                f1s = []
+                f2s = upc + ',' + filename
+                for f1 in featArr:
+                    f1s.append(float(np.sum(f1)))
+                    f2s = f2s + "," + str(float(np.sum(f1)))
+                self.X.append(f1s)
+                self.img_features.append(f2s)
+        return self.img_features,self.X
+
+
+
+
     def get_goods_features(self):
         for good_feature_file in os.listdir(self.feature_path):
             img_feature_path = os.path.join(self.feature_path, good_feature_file)
