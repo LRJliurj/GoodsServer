@@ -22,13 +22,18 @@ class online_util:
                 dises.append(float(dis))
         return features,goods_upcs,dises
     # 获取top_n 商品
-    def get_topn_upc(self,cluter,to_cluter_dis,top_n=top_n):
+    def get_topn_upc(self,cluter,img_feature,top_n=top_n):
         upcs = []
         features, goods_upcs, dises = self.get_good_feature(cluter)
         cluter_dict = {}
-        for i,good_upc,distance in zip(range(len(goods_upcs)),goods_upcs,dises):
-            cluter_dict[str(i)+"##"+str(good_upc)] = abs(distance-to_cluter_dis)
-        # print (cluter_dict)
+        for i,good_upc,feature in zip(range(len(goods_upcs)),goods_upcs,features):
+            featArr = feature.split(',')[2:-1]
+            f1s = []
+            for f1 in featArr:
+                # print (f1)
+                f1s.append(float(f1))
+            to_img_dis = pdis(f1s, img_feature)[0]
+            cluter_dict[str(i)+"##"+str(good_upc)] = abs(to_img_dis)
         a = sorted(cluter_dict.items(), key=lambda x: x[1], reverse=False)
         for key in a:
             upc = key[0].split("##")[1]

@@ -59,12 +59,12 @@ class ClusterGoods:
             # print("cluter_label" + str(cluter_labels))
             ret={}
             log.info("get local file features start time :" + str(time.time()))
-            for cluter_label,img_local_file in zip(cluter_labels,img_local_files):
-                to_cluter_dis = pdis(f1s, clf.cluster_centers_[cluter_label])[0]
-                upcs = online.get_topn_upc(cluter_label, to_cluter_dis)
+            for cluter_label,img_local_file,img_feature in zip(cluter_labels,img_local_files,f1ss):
+                upcs = online.get_topn_upc(cluter_label, img_feature)
                 ret[img_local_file] = upcs
             # log.info("trace_id = {%s},,ret={%s}" % (trace_id, str(demjson.encode(ret))))
             log.info("getmany_topn end time :" + str(time.time()))
+            log.info("trace_id={%s},ret={%s}"%(trace_id,str(ret)))
             return HttpResponse(str(result_success(ret)))
         except:
             log.trace()
@@ -90,8 +90,8 @@ class ClusterGoods:
             # print ("feature_img"+str(f1s))
             cluter_label = clf.predict([f1s])[0]
             # print("cluter_label" + str(cluter_label))
-            to_cluter_dis = pdis(f1s,clf.cluster_centers_[cluter_label])[0]
-            upcs = online.get_topn_upc(cluter_label,to_cluter_dis)
+            # to_cluter_dis = pdis(f1s,clf.cluster_centers_[cluter_label])[0]
+            upcs = online.get_topn_upc(cluter_label,f1s)
             log.info("trace_id = {%s},img_local_file={%s},upcs={%s},cluter_label={%s}"%(trace_id,img_local_file,str(upcs),str(cluter_label)))
             data = {"upcs":upcs}
             return HttpResponse(str(result_success(data)))

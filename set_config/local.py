@@ -38,8 +38,8 @@ goods_params = {
         },
         "offline":{
             #kmean 聚类前 vgg19预测的特征数据
-            "vgg_predict_features_path":"D:\\opt\\data\\step2_all_feature\\",
-            "vgg_predict_features_path1":"D:\\opt\\data\\step2_all_feature\\vgg_features.txt"
+            "vgg_predict_features_path":"D:\\opt\\data\\goods\\step2_all_feature\\",
+            "vgg_predict_features_path1":"D:\\opt\\data\\goods\\step2_all_feature\\vgg_features.txt"
         },
     },
     "vgg19_params":{
