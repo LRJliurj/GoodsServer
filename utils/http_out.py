@@ -16,4 +16,4 @@ def result_failed():
     errors['returnMessage'] = "failed"
     error_dict['error'] = demjson.encode(errors)
     error_dict['data'] = ''
-    return demjson.decode(error_dict)
+    return demjson.encode(error_dict)
