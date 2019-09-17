@@ -9,31 +9,34 @@ class online_util:
     # 获取指定聚类的商品特征
     def get_good_feature(self,cluter):
         cluter_feature_file = os.path.join(self.save_sort_feature_path,str(cluter)+".txt")
-        features = []
+        # features = []
         goods_upcs = []
-        dises = []
+        # dises = []
         with open(cluter_feature_file,'r') as f:
             features = f.readlines()
             for feature in features:
                 ft = feature.split(",")
                 good_upc = ft[0]
-                dis = ft[-1]
+                # dis = ft[-1]
                 goods_upcs.append(good_upc)
-                dises.append(float(dis))
-        return features,goods_upcs,dises
+                # dises.append(float(dis))
+        # return features,goods_upcs,dises
+        return goods_upcs
     # 获取top_n 商品
     def get_topn_upc(self,cluter,img_feature,top_n=top_n):
-        upcs = []
-        features, goods_upcs, dises = self.get_good_feature(cluter)
-        cluter_dict = {}
-        for i,good_upc,feature in zip(range(len(goods_upcs)),goods_upcs,features):
-            featArr = feature.split(',')[2:-1]
-            f1s = []
-            for f1 in featArr:
-                # print (f1)
-                f1s.append(float(f1))
-                upcs.append(good_upc)
-        return list(set(upcs))
+        # upcs = []
+        # features, goods_upcs, dises = self.get_good_feature(cluter)
+        goods_upcs = self.get_good_feature(cluter)
+        return list(set(goods_upcs))
+        # cluter_dict = {}
+        # for i,good_upc,feature in zip(range(len(goods_upcs)),goods_upcs,features):
+        #     featArr = feature.split(',')[2:-1]
+        #     f1s = []
+        #     for f1 in featArr:
+        #         # print (f1)
+        #         f1s.append(float(f1))
+        #         upcs.append(good_upc)
+
         #     to_img_dis = pdis(f1s, img_feature)[0]
         #     cluter_dict[str(i)+"##"+str(good_upc)] = abs(to_img_dis)
         # a = sorted(cluter_dict.items(), key=lambda x: x[1], reverse=False)
