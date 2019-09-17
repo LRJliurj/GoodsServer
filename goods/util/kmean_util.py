@@ -32,16 +32,18 @@ class online_util:
             for f1 in featArr:
                 # print (f1)
                 f1s.append(float(f1))
-            to_img_dis = pdis(f1s, img_feature)[0]
-            cluter_dict[str(i)+"##"+str(good_upc)] = abs(to_img_dis)
-        a = sorted(cluter_dict.items(), key=lambda x: x[1], reverse=False)
-        for key in a:
-            upc = key[0].split("##")[1]
-            if (len(upcs) <= top_n) and (upc not in upcs):
-                upcs.append(upc)
-            elif (len(upcs) >= top_n):
-                break
-        return upcs
+                upcs.append(good_upc)
+        return list(set(upcs))
+        #     to_img_dis = pdis(f1s, img_feature)[0]
+        #     cluter_dict[str(i)+"##"+str(good_upc)] = abs(to_img_dis)
+        # a = sorted(cluter_dict.items(), key=lambda x: x[1], reverse=False)
+        # for key in a:
+        #     upc = key[0].split("##")[1]
+        #     if (len(upcs) <= top_n) and (upc not in upcs):
+        #         upcs.append(upc)
+        #     elif (len(upcs) >= top_n):
+        #         break
+        # return upcs
     # 保存新建商品的聚类特征
     def save_new_goods_feature(self,cluter,to_cluter_dis,good_upc,good_feature,img_file_name):
         fts = good_upc+","+img_file_name
