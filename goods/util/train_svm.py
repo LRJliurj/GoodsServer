@@ -54,6 +54,9 @@ def test(path,model_file):
             j+=1
 
     print (float(j/len(label_ts)))
+    socre = float(j/len(label_ts))
+    with open("1.txt","w") as f:
+        f.write(str(socre))
 
 
 if __name__=="__main__":
