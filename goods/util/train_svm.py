@@ -25,7 +25,6 @@ def load_data(path):
             for feat1 in features1:
                 for feat2 in features2:
                     feature = []
-                    print (feat2)
                     if type(feat1)==type(None) or type(feat2)==type(None):
                         continue
                     feature.extend(feat1)
