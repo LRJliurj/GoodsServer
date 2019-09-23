@@ -31,3 +31,4 @@ pip install  -U -i https://pypi.tuna.tsinghua.edu.cn/simple demjson
 pip install  -U -i https://pypi.tuna.tsinghua.edu.cn/simple pymysql
 pip install  -U -i https://pypi.tuna.tsinghua.edu.cn/simple pyspark
 pip install -U -i https://pypi.tuna.tsinghua.edu.cn/simple pyarrow
+pip --default-timeout=100 install -U -i https://pypi.tuna.tsinghua.edu.cn/simple opencv-contrib-python==3.4.2.16
