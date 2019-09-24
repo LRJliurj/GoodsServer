@@ -23,7 +23,7 @@ class SIFT:
         pca = PCA(n_components=n_components)  # 加载PCA算法，设置降维后主成分数目为1
         return pca.fit_transform(x)  # 对样本进行降维
 
-    def get_features(self,img,size=(15,1920)):
+    def get_features(self,img,size=(15,500)):
         sift_feature = self.get_sift_features(img)
         if type(sift_feature) != type(None):
             features_rows = sift_feature.shape[0]
