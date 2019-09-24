@@ -4,7 +4,7 @@
 import cv2
 from sklearn.decomposition import PCA
 import numpy
-
+pca = PCA(n_components=500)
 class SIFT:
     detector=None
     extractor=None
@@ -20,7 +20,7 @@ class SIFT:
         return self.extract_sift(img)
 
     def pca(self,x,n_components=1):
-        pca = PCA(n_components=n_components)  # 加载PCA算法，设置降维后主成分数目为1
+        # pca = PCA(n_components=n_components)  # 加载PCA算法，设置降维后主成分数目为1
         return pca.fit_transform(x)  # 对样本进行降维
 
     def get_features(self,img,size=(15,500)):

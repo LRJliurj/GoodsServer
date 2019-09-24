@@ -38,7 +38,7 @@ def load_data(path):
 #
 def train(path,model_file):
     data,labels = load_data(path)
-    print ("datas num:"+str(labels))
+    print ("datas num:"+str(len(labels)))
     svm_ins = SVM()
     svm_model = svm_ins.train(data,labels)
     svm_ins.save_model(svm_model,model_file)
