@@ -4,7 +4,7 @@
 import cv2
 from sklearn.decomposition import PCA
 import numpy
-pca = PCA(n_components=500)
+pca = PCA(n_components=15)
 class SIFT:
     detector=None
     extractor=None
